@@ -1,0 +1,7 @@
+{
+  "static": {
+    "build": "./valist.Dockerfile",
+    "dist": "/app/dist",
+    "index": "index.html"
+  }
+}

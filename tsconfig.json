@@ -1,0 +1,22 @@
+{
+    "compilerOptions": {
+        "sourceMap": true,
+        "noImplicitAny": true,
+        "strictNullChecks": true,
+        "preserveConstEnums": true,
+        "outDir": "build",
+        "target": "es5",
+        "lib": [
+            "esnext"
+        ],
+        "moduleResolution": "node"
+    },
+    "include": ["src/*.ts", "src/shared/config.ts"],
+    "files": [
+        "./node_modules/@types/mocha/index.d.ts",
+        "./node_modules/@types/node/index.d.ts"
+    ],
+    "exclude": [
+        "node_modules"
+    ]
+}

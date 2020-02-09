@@ -1,0 +1,37 @@
+{
+  "name": "valist",
+  "version": "1.0.1",
+  "description": "CLI for Valist to test staging configurations locally",
+  "main": "cli.js",
+  "scripts": {
+    "test": "mocha --require ts-node/register ./test/*.spec.ts",
+    "build": "tsc --build tsconfig.json",
+    "postinstall": "npm run build"
+  },
+  "author": "",
+  "license": "ISC",
+  "bin": {
+    "valist": "./build/cli.js"
+  },
+  "dependencies": {
+    "commander": "^4.1.1",
+    "console.table": "^0.10.0",
+    "dev-null": "^0.1.1",
+    "dockerode": "^3.0.2",
+    "get-port": "^5.1.1",
+    "nanoid": "^2.1.11",
+    "ora": "^4.0.3",
+    "shorthash": "0.0.2",
+    "typed-rest-client": "^1.7.1"
+  },
+  "devDependencies": {
+    "@types/dockerode": "^2.5.21",
+    "@types/mocha": "^7.0.1",
+    "@types/node": "^13.7.0",
+    "@types/yargs": "^15.0.3",
+    "mocha": "^7.0.1",
+    "ts-loader": "^6.2.1",
+    "ts-node": "^8.6.2",
+    "typescript": "^3.7.5"
+  }
+}

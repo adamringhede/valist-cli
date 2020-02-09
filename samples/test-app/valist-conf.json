@@ -1,0 +1,6 @@
+{
+  "docker": {
+    "build": "valist.Dockerfile",
+    "port": 80
+  }
+}

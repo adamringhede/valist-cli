@@ -1,6 +1,6 @@
 {
   "name": "valist",
-  "version": "1.0.1",
+  "version": "1.0.3",
   "description": "CLI for Valist to test staging configurations locally",
   "main": "cli.js",
   "scripts": {

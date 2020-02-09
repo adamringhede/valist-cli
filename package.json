@@ -1,12 +1,12 @@
 {
   "name": "valist",
-  "version": "1.0.4",
+  "version": "1.0.5",
   "description": "CLI for Valist to test staging configurations locally",
   "main": "cli.js",
   "scripts": {
     "test": "mocha --require ts-node/register ./test/*.spec.ts",
     "build": "tsc --build tsconfig.json",
-    "postinstall": "npm run build"
+    "prepare": "npm run build"
   },
   "author": "",
   "license": "ISC",

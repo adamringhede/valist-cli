@@ -1,8 +1,9 @@
 # Valist CLI
+https://www.valist.dev
 
-Mmanage the hosting of your applications with simple commands.
+Manage the hosting of your applications with simple commands.
 
-You can also run your deployment configuration locally to ensure that it works as intended. 
+Run your deployment configuration locally to ensure that it works as intended. 
 
 ### Install
 ```sh

@@ -1,7 +1,8 @@
 {
   "name": "valist",
-  "version": "1.0.5",
+  "version": "1.0.6",
   "description": "CLI for Valist to test staging configurations locally",
+  "homepage": "https://www.valist.dev",
   "main": "cli.js",
   "scripts": {
     "test": "mocha --require ts-node/register ./test/*.spec.ts",

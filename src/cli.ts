@@ -13,6 +13,6 @@ program
     .command('local')
     .description('run your app locally to test your configuration')
     .option('--context <path>', 'location of valist configuration files', undefined, '.')
-    .action((_, options) => new LocalCommand().run(options))
+    .action((_, options: {}) => new LocalCommand().run(options))
 
 program.parse(process.argv)

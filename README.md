@@ -11,6 +11,7 @@ npm i -g valist
 
 ### Example configuration
 See more examples in the *samples* folder.
+
 **valist-conf.json**
 ```json
 {
@@ -21,6 +22,7 @@ See more examples in the *samples* folder.
   }
 }
 ```
+
 **valist.Dockerfile**
 ```dockerfile
 FROM node:alpine
@@ -29,7 +31,7 @@ WORKDIR /app
 ```
 
 ### Run your app locally
-Standing in your proejcts root directory.
+Standing in your project's root directory, run the following command.
 ```sh
 valist local
 ```

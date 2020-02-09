@@ -17,7 +17,8 @@ const defaultConfigFileName = 'valist-conf.json'
 const preferredPorts = [50_000, 50_001, 50_002, 50_003, 50_004, 50_005, 50_006, 50_007, 50_008, 50_009, 50_010]
 
 export interface LocalCommandConfig {
-    context?: string
+    context?: string,
+    env?: string[]
 }
 
 export class LocalCommand {
@@ -25,7 +26,8 @@ export class LocalCommand {
     private container: Docker.Container|null = null
     private readonly staticHostImage = 'nginx:alpine'
     public static readonly defaultConfig: LocalCommandConfig = {
-        context: '.'
+        context: '.',
+        env: []
     }
 
     constructor() {
@@ -47,21 +49,22 @@ export class LocalCommand {
         }
         const config = JSON.parse(fs.readFileSync(configFilePath).toString()) as DeployConfig
         if (config.static) {
-            this.runStatic(contextPath, config)
+            this.runStatic(contextPath, config, options.env ?? [])
         } else if (config.docker) {
-            this.runDocker(contextPath, config)
+            this.runDocker(contextPath, config, options.env ?? [])
         } else {
             panic("Missing configuration type. Must be 'static' or 'docker'")
         }
     }
 
-    async runStatic(contextPath: string, config: DeployConfig) {
+    async runStatic(contextPath: string, config: DeployConfig, env: string[]) {
         if (config.static == null) return
         const imageName = config.static.image ?? await this.buildImage(contextPath, config.static.build!)
         const localOutDir = '.valist-build'
         const outDir = path.join(process.cwd(), localOutDir)
         const buildSpinner = ora(`Building static app`).start()
         await this.docker.run(imageName, config.static.cmd ?? [], process.stdout, {
+            Env: env,
             HostConfig: {
                 Binds: [`${outDir}:${config.static.dist}`]
             }
@@ -86,12 +89,13 @@ export class LocalCommand {
         })
     }
 
-    async runDocker(contextPath: string, config: DeployConfig) {
+    async runDocker(contextPath: string, config: DeployConfig, env: string[]) {
         if (config.docker == null) return
         const imageName = config.docker.image ?? await this.buildImage(contextPath, config.docker.build!)
         const port = await freePort({port: preferredPorts})
         // TODO Pass in environment variables somehow. Maybe using a file or as arguments using -e or --env
         this.docker.run(imageName, config.docker.cmd ?? [], process.stdout, {
+            Env: env,
             HostConfig: {
                 PortBindings: {
                     [`${config.docker.port}/tcp`]: [{

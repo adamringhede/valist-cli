@@ -18,7 +18,7 @@
     "commander": "^4.1.1",
     "console.table": "^0.10.0",
     "dev-null": "^0.1.1",
-    "dockerode": "^3.0.2",
+    "dockerode": "git://github.com/apocas/dockerode.git#bd5fd1867997f70180d8da6b57807a993c880ca8",
     "get-port": "^5.1.1",
     "nanoid": "^2.1.11",
     "ora": "^4.0.3",

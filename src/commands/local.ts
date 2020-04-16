@@ -111,15 +111,19 @@ export class LocalCommand {
     }
 
     async buildImage(contextPath: string, dockerfile: string): Promise<string> {
-        const imageName = "valist-app-" + hashing.unique(process.cwd()).split('').map((x: string) => x.charCodeAt(0)).join('')
+        const pathHash = hashing.unique(process.cwd()).split('').map((x: string) => x.charCodeAt(0)).join('')
+        const imageName = "valist-app-" + pathHash 
         const spinner = ora("Building image").start()
-        await this.docker.buildImage({
+        const stream = await this.docker.buildImage({
             context: contextPath,
             src: ["."]
         }, {
             dockerfile: dockerfile,
             t: imageName
         })
+        await new Promise((resolve, reject) => {
+            this.docker.modem.followProgress(stream, (err: any, res: any) => err ? reject(err) : resolve(res));
+        });
         spinner.succeed("Built image: " + imageName)
         return imageName
     }

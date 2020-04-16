@@ -19,7 +19,7 @@ See more examples in the *samples* folder.
   "static": {
     "build": "./Dockerfile",
     "dist": "/app/dist",
-    "cmd": ["npm", "build"]
+    "cmd": ["npm", "run", "build"]
   }
 }
 ```

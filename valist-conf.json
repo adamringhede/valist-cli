@@ -1,7 +1,8 @@
+
 {
-  "static": {
-    "build": "./valist.Dockerfile",
-    "dist": "/app/dist",
-    "index": "index.html"
-  }
+    "static": {
+        "build": "./Dockerfile",
+        "dist": "/path/to/static_files",
+        "cmd": ["your-build-command"]
+    }
 }

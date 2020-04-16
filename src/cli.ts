@@ -2,6 +2,7 @@
 
 import * as program from 'commander'
 import { LocalCommand } from './commands/local'
+import { InitCommand } from './commands/init'
 
 
 process.on('unhandledRejection', (err) => { 
@@ -18,6 +19,12 @@ program
     .description('run your app locally to test your configuration')
     .option('--context <path>', 'location of valist configuration files', undefined, '.')
     .option('-e --env', 'environment variables passed to container', collect, [])
-    .action((_, options: {}) => new LocalCommand().run(options))
+    .action((_, options) => new LocalCommand().run(options as any))
+
+program
+    .command('init')
+    .description('create a Valist configuration file')
+    .requiredOption('--type <docker>', 'either docker or static')
+    .action((options) => new InitCommand().run(options))
 
 program.parse(process.argv)

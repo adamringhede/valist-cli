@@ -7,6 +7,8 @@ import * as freePort from 'get-port'
 import * as ora from 'ora'
 const hashing = require('shorthash')
 const devnull = require('dev-null')
+var tar = require('tar-fs')
+
 
 function panic(message: string) {
     console.error(message)
@@ -60,16 +62,26 @@ export class LocalCommand {
     async runStatic(contextPath: string, config: DeployConfig, env: string[]) {
         if (config.static == null) return
         const imageName = config.static.image ?? await this.buildImage(contextPath, config.static.build!)
-        const localOutDir = '.valist-build'
+        const localOutDir = '.valist-build-static'
+        fs.rmdir(localOutDir, {recursive: true}, () => {})
         const outDir = path.join(process.cwd(), localOutDir)
         const buildSpinner = ora(`Building static app`).start()
-        await this.docker.run(imageName, config.static.cmd ?? [], process.stdout, {
+        const [_, container]: [any, Docker.Container] =  await this.docker.run(imageName, config.static.cmd ?? [], process.stdout, {
             Env: env,
             HostConfig: {
-                Binds: [`${outDir}:${config.static.dist}`]
+                //Binds: [`${outDir}:${config.static.dist}`]
             }
         } as Docker.ContainerCreateOptions, {})
+        while ((await container.inspect()).State.Running) {
+            await delay(2000)
+        }
+        
+        // Copy files
+        const stream = await container.getArchive({path: config.static.dist})   
+        stream.pipe(tar.extract(localOutDir,  {strip: 1}))
+
         buildSpinner.succeed(`Built static files at ${localOutDir}`)
+
         
         // Run in static host
         const port = await freePort({port: preferredPorts})

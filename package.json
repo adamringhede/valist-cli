@@ -1,6 +1,6 @@
 {
   "name": "valist",
-  "version": "1.0.6",
+  "version": "1.0.7",
   "description": "CLI for Valist to test staging configurations locally",
   "homepage": "https://www.valist.dev",
   "main": "cli.js",
@@ -23,6 +23,7 @@
     "nanoid": "^2.1.11",
     "ora": "^4.0.3",
     "shorthash": "0.0.2",
+    "tar-fs": "^2.0.1",
     "typed-rest-client": "^1.7.1"
   },
   "devDependencies": {

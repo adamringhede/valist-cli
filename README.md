@@ -52,9 +52,9 @@ https://www.valist.dev
 
 Deploy your website automatically by connecting your GIT repository in GitHub, Bitbucket or Gitlab.
 
-#### 2. Configure build settings
+#### 2. Configure your build
 
-Specify a build command for static apps or a Dockerfile to run your website the way you need it to run.
+Run the way you need your application to run by including a Dockerfile to run your own web server or build your static web app.
 
 #### 3. Deploy every pull request
 
